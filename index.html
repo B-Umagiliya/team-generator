@@ -1,0 +1,58 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Cricket Team Generator</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            padding: 20px;  
+            background-color: #f4f4f4;  
+        }  
+        h1 {  
+            color: #333;  
+        }  
+        input, button {  
+            padding: 10px;  
+            margin: 10px 0;  
+            width: 100%;  
+            max-width: 300px;  
+        }  
+        .team {  
+            margin-top: 20px;  
+            border: 1px solid #ccc;  
+            padding: 10px;  
+            background: #fff;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <h1>Cricket Team Generator</h1>  
+    <input type="text" id="playerInput" placeholder="Enter player names separated by commas">  
+    <input type="number" id="teamSize" placeholder="Team size" min="1">  
+    <button id="generateButton">Generate Team</button>  
+    <div class="team" id="teamOutput"></div>  
+    <script>  
+        document.getElementById('generateButton').addEventListener('click', function() {  
+            const playerInput = document.getElementById('playerInput').value;  
+            const teamSize = +document.getElementById('teamSize').value;  
+            const players = playerInput.split(',').map(player => player.trim()).filter(player => player);  
+            if (teamSize > players.length) {  
+                alert('Team size exceeds number of players!');  
+                return;  
+            }  
+            const team = [];  
+            let usedIndices = [];  
+            while (team.length < teamSize) {  
+                const index = Math.floor(Math.random() * players.length);  
+                if (!usedIndices.includes(index)) {  
+                    usedIndices.push(index);  
+                    team.push(players[index]);  
+                }  
+            }  
+            document.getElementById('teamOutput').innerHTML = '<strong>Your Team:</strong> ' + team.join(', ');  
+        });  
+    </script>  
+</body>  
+</html>
